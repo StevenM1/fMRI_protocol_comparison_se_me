@@ -301,11 +301,12 @@ def add_contours(disp, roi, color='white', linewidth=2, thr=0.3, **kwargs):
     thr = max(thr, 1e-6)
     disp.add_contours(nib.Nifti1Image(data, map_img.affine), levels=[thr], linewidths=linewidth, colors=[color], **kwargs)
 
+from nilearn import plotting
 def draw_custom_colorbar(colorbar_ax, vmin=3, vmax=6, truncation_limits=(0,6), offset=4., nb_ticks=4, flip=True,
-                         format="%d"):
+                         format="%d", cmap=plotting.cm.cold_hot):
     from matplotlib.colorbar import ColorbarBase
     from matplotlib import colors
-    our_cmap = plotting.cm.cold_hot
+    our_cmap = cmap
     if flip:
         truncation_limits = [truncation_limits[1], truncation_limits[0]]
     ticks = np.linspace(truncation_limits[0], truncation_limits[1], nb_ticks)
